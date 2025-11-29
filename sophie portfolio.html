@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Art Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b0b10;
+      color: #f5f5f5;
+      line-height: 1.5;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(5, 5, 10, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      margin-left: 1.25rem;
+      text-decoration: none;
+      color: #f5f5f5;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3.5rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 3vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      max-width: 34rem;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tags {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      text-decoration: none;
+      color: #f5f5f5;
+      margin-right: 0.75rem;
+      margin-bottom: 0.5rem;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-buttons a.primary {
+      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      color: #050509;
+      border: none;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-buttons a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-preview {
+      border-radius: 1.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: radial-gradient(circle at top, #26263a, #050509);
+      padding: 0.75rem;
+    }
+
+    .hero-preview img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 1.2rem;
+      object-fit: cover;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      margin: 2.5rem 0 1.5rem;
+      font-weight: 600;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #252538, #11111a);
+      border-radius: 1.1rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-content {
+      padding: 0.85rem 0.9rem 1rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-meta {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      align-items: flex-start;
+    }
+
+    .about p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 0.8rem;
+    }
+
+    .about-highlight {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      border-left: 2px solid rgba(255, 255, 255, 0.3);
+      padding-left: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact-box {
+      background: radial-gradient(circle at top left, #2a2a3f, #101019);
+      border-radius: 1.1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+    }
+
+    .contact-box a {
+      color: #ffc371;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      opacity: 0.55;
+      padding-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero, .about {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        margin-top: 1.5rem;
+      }
+
+      .hero-preview {
+        order: -1;
+      }
+
+      nav {
+        display: none; /* simple mobile version */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">RAQUEL • ART</div>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="hero-tags">Digital painting • Illustration • Concept art</div>
+        <h1 class="hero-title">Color-driven illustrations and dreamlike scenes.</h1>
+        <p class="hero-subtitle">
+          I’m an artist focused on atmospheric environments, characters and surreal compositions.
+          Here is a selection of recent pieces and commissions.
+        </p>
+        <div class="hero-buttons">
+          <a href="#work" class="primary">View portfolio</a>
+          <a href="#contact">Request a commission</a>
+        </div>
+      </div>
+      <div class="hero-preview">
+        <!-- Replace this with one of your artworks -->
+        <img src="https://images.pexels.com/photos/2837009/pexels-photo-2837009.jpeg" alt="Featured artwork preview" />
+      </div>
+    </section>
+
+    <section id="work">
+      <h2 class="section-title">Selected works</h2>
+      <div class="gallery">
+        <!-- Card 1 -->
+        <article class="card">
+          <img src="https://images.pexels.com/photos/3738084/pexels-photo-3738084.jpeg" alt="Artwork 1" />
+          <div class="card-content">
+            <h3 class="card-title">Midnight Garden</h3>
+            <div class="card-meta">Digital painting • 2024</div>
+            <p class="card-desc">An exploration of light and color in a dreamlike night scene.</p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <img src="https://images.pexels.com/photos/3551793/pexels-photo-3551793.jpeg" alt="Artwork 2" />
+          <div class="card-content">
+            <h3 class="card-title">Neon City</h3>
+            <div class="card-meta">Concept art • 2024</div>
+            <p class="card-desc">A futuristic city inspired by cyberpunk cinema and vaporwave aesthetics.</p>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <img src="https://images.pexels.com/photos/322207/pexels-photo-322207.jpeg" alt="Artwork 3" />
+          <div class="card-content">
+            <h3 class="card-title">Solar Bloom</h3>
+            <div class="card-meta">Mixed media • 2023</div>
+            <p class="card-desc">Combining ink textures with digital coloring for organic abstract shapes.</p>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <img src="https://images.pexels.com/photos/208052/pexels-photo-208052.jpeg" alt="Artwork 4" />
+          <div class="card-content">
+            <h3 class="card-title">Echoes</h3>
+            <div class="card-meta">Illustration • 2023</div>
+            <p class="card-desc">A quiet portrait exploring reflection, repetition and soft lighting.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div>
+        <h2 class="section-title">About the artist</h2>
+        <p>
+          I’m Raquel, a self-taught illustrator currently studying business and creating art in my free time.
+          I love mixing atmospheric lighting with bold, saturated palettes.
+        </p>
+        <p>
+          My work is inspired by cinema, science-fiction and everyday moments that feel a bit surreal.
+          I’m available for cover art, poster design and personal commissions.
+        </p>
+        <p class="about-highlight">
+          Currently exploring a series of works around urban loneliness, neon lights and reflections on wet streets.
+        </p>
+      </div>
+      <div id="contact" class="contact-box">
+        <h3 style="margin-bottom: 0.75rem;">Contact</h3>
+        <p>
+          For commissions, collaborations or questions, feel free to email me:
+        </p>
+        <p style="margin-top: 0.6rem; font-weight: 600;">
+          <a href="mailto:youremail@example.com">youremail@example.com</a>
+        </p>
+        <p style="margin-top: 0.9rem; opacity: 0.7;">
+          You can also find more sketches and works-in-progress on Instagram and ArtStation.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Your Name • All artworks and images belong to the artist.
+    </footer>
+  </main>
+</body>
+</html>
